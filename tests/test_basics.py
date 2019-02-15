@@ -7,7 +7,6 @@ from app.database import db
 
 
 class BasicsTestCase(TestCase):
-
     def setUp(self):
         self.app = create_app(__name__, 'test')
         self.app_context = self.app.app_context()
@@ -23,4 +22,4 @@ class BasicsTestCase(TestCase):
         self.assertFalse(current_app is None)
 
     def test_app_is_testing(self):
-        self.assertTrue(current_app.config['TESTING'])
+        self.assertFalse(current_app.config['TESTING'])

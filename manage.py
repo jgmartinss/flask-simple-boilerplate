@@ -1,5 +1,7 @@
 import click
 
+from decouple import config
+
 from unittest import TestLoader, runner
 
 from flask import current_app
@@ -9,12 +11,14 @@ from flask_migrate import Migrate, MigrateCommand
 from app import create_app, db
 from app.auth import models
 
+from config import get_config
 
-app = create_app(__name__, 'dev')
+
+app = create_app(__name__, get_config())
 manager = Manager(app)
 
-runserver = Server(host="127.0.0.1", port=8000)
-manager.add_command("runserver", runserver)
+runserver = Server(host=config('HOST'), port=config('PORT'))
+manager.add_command('runserver', runserver)
 
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
@@ -26,7 +30,7 @@ def make_shell_context():
 
 
 @manager.command
-def fake_user():
+def create_user():
     db.drop_all(bind=None)
     db.create_all(bind=None)
 
@@ -34,8 +38,8 @@ def fake_user():
         first_name=u'Test',
         last_name=u'Tests',
         username=u'tests',
-        email=u"test@gmail.com",
-        _password=u'123456'
+        email=u'test@email.com',
+        _password=u'123456',
     )
     db.session.add(user)
     db.session.commit()

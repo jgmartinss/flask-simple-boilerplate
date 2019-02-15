@@ -2,9 +2,9 @@ from setuptools import setup
 
 
 setup(
-    name='Flask_Start',
+    name='Flask Simple Boilerplate',
     author='João Martins',
     author_email='jgmartinsss@hotmail.com',
     description='A simple boilerplate',
-    url='https://github.com/jgmartinss/flask_start',
+    url='https://github.com/jgmartinss/flask-simple-boilerplate',
 )

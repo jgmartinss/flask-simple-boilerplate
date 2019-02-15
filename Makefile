@@ -1,3 +1,15 @@
+help:
+	@echo '---------------Flask-Simple-Boilerplate---------------'
+	@echo '                                                      '
+	@echo 'Usage:                                                '
+	@echo '------> run         Run project                       '
+	@echo '------> initdb      Init database                     '
+	@echo '------> test        Run tests                         '
+	@echo '------> createuser  Create superuser                  '
+	@echo '------> upgrade     Run upgrade db                    '
+	@echo '------> migrate     Run migrate                       '
+	@echo '------> setup       Setup the project                 '
+
 clean:
 	rm -rf app/__pycache__
 	rm -rf app/auth/__pycache__
@@ -12,10 +24,9 @@ migrate:
 upgrade:
 	python3 manage.py db upgrade
 createuser:
-	python3 manage.py fake_user
+	python3 manage.py create_user
 test:
 	python3 manage.py tests
 requirements:
 	pip3 freeze > requirements.txt
-install:
-	pip3 install -r requirements.txt
+setup: initdb migrate upgrade
